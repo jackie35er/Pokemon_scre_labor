@@ -33,6 +33,11 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>9.5.0.jre17-preview</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>17.0.0.1</version>
+        </dependency>
 
     </dependencies>
 

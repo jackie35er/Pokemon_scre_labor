@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
@@ -10,23 +9,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.controller.controller">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@d874gjl-59e79083-fec5-4234-8879-2aa8afd7f9f4.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="350.0" fitWidth="350.0" layoutX="448.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@1.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="350.0" fitWidth="350.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@1%20(1).png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="background" fitHeight="480.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="enemyImg" fitHeight="350.0" fitWidth="350.0" layoutX="448.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="allyImg" fitHeight="350.0" fitWidth="350.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="95.0" layoutX="430.0" layoutY="240.0" opacity="0.5" stroke="#b0313100" strokeType="INSIDE" width="370.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0" startY="1.0">
@@ -68,12 +55,8 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <ImageView fx:id="genderEnemy1" fitHeight="30.0" fitWidth="30.0" layoutX="455.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@62a203b33395eb8.png" />
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="579.0" layoutY="306.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="5.0" width="200.0">
+      <ImageView fx:id="allyGender" fitHeight="30.0" fitWidth="30.0" layoutX="455.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="allyHealthbar" arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="579.0" layoutY="306.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="5.0" width="200.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -91,9 +74,9 @@
             </LinearGradient>
          </fill></Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="10.0" layoutX="579.0" layoutY="306.0" stroke="#4d4d4d7f" strokeType="OUTSIDE" strokeWidth="2.0" width="200.0" />
-      <Label fx:id="lvlEnemy1" layoutX="720.0" layoutY="286.0" text="Lv 13">
+      <Label fx:id="allyLvl" layoutX="720.0" layoutY="286.0">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="15.0" />
+            <Font size="15.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -112,9 +95,9 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label fx:id="nameEnemy1" layoutX="455.0" layoutY="260.0" text="Bluffin">
+      <Label fx:id="allyName" layoutX="455.0" layoutY="260.0">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="25.0" />
+            <Font size="25.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -185,9 +168,9 @@
       </Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="90.0" layoutX="86.0" layoutY="370.0" stroke="#6e6e6e" strokeType="OUTSIDE" strokeWidth="3.0" width="200.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="90.0" layoutX="86.0" layoutY="370.0" stroke="#ffce1e" strokeType="INSIDE" strokeWidth="3.0" width="200.0" />
-      <Label fx:id="nameEnemy2" alignment="CENTER" layoutX="91.0" layoutY="376.0" prefHeight="80.0" prefWidth="190.0" text="What will you do?" textFill="#4d4d4d">
+      <Label alignment="CENTER" layoutX="91.0" layoutY="376.0" prefHeight="80.0" prefWidth="190.0" text="What will you do?" textFill="#4d4d4d">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="15.0" />
+            <Font size="15.0" />
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="35.0" layoutX="467.0" layoutY="380.0" stroke="#6e6e6e" strokeType="OUTSIDE" strokeWidth="3.0" width="150.0" />
@@ -200,22 +183,22 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="35.0" layoutX="467.0" layoutY="380.0" stroke="#ffce1e" strokeType="INSIDE" strokeWidth="3.0" width="150.0" />
       <Label alignment="CENTER" layoutX="482.0" layoutY="387.0" prefHeight="20.0" prefWidth="120.0" text="FIGHT">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="15.0" />
+            <Font size="15.0" />
          </font>
       </Label>
       <Label alignment="CENTER" layoutX="643.0" layoutY="387.0" prefHeight="20.0" prefWidth="120.0" text="BAG">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="15.0" />
+            <Font size="15.0" />
          </font>
       </Label>
       <Label alignment="CENTER" layoutX="482.0" layoutY="432.0" prefHeight="20.0" prefWidth="120.0" text="POKéMON">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="15.0" />
+            <Font size="15.0" />
          </font>
       </Label>
       <Label alignment="CENTER" layoutX="643.0" layoutY="433.0" prefHeight="20.0" prefWidth="120.0" text="RUN">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="15.0" />
+            <Font size="15.0" />
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="95.0" layoutY="80.0" opacity="0.5" stroke="#b0313100" strokeType="INSIDE" width="370.0">
@@ -264,12 +247,8 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <ImageView fx:id="genderEnemy11" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@62a203b33395eb8.png" />
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="149.0" layoutY="146.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="5.0" width="200.0">
+      <ImageView fx:id="enemyGender" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
+      <Rectangle fx:id="enemyHealthbar" arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="149.0" layoutY="146.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="5.0" width="200.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -288,9 +267,9 @@
          </fill>
       </Rectangle>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="10.0" layoutX="149.0" layoutY="146.0" stroke="#4d4d4d7f" strokeType="OUTSIDE" strokeWidth="2.0" width="200.0" />
-      <Label fx:id="lvlEnemy11" layoutX="290.0" layoutY="126.0" text="Lv 13">
+      <Label fx:id="enemyLvl" layoutX="290.0" layoutY="126.0">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="15.0" />
+            <Font size="15.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -314,9 +293,9 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label fx:id="nameEnemy11" layoutX="25.0" layoutY="100.0" text="Bluffin">
+      <Label fx:id="emenyName" layoutX="25.0" layoutY="100.0">
          <font>
-            <Font name="PKMN RBYGSC Regular" size="25.0" />
+            <Font size="25.0" />
          </font>
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">

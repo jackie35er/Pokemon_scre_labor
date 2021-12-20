@@ -15,6 +15,7 @@ public class app extends Application{
         URL url = new File("src/main/resources/PokemonFXML.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Scene scene = new Scene(root);
+
         stage.setScene(scene);
         stage.setTitle("Pokemon");
         stage.show();

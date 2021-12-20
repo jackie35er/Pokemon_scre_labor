@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
@@ -12,21 +11,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@d874gjl-59e79083-fec5-4234-8879-2aa8afd7f9f4.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="350.0" fitWidth="350.0" layoutX="448.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@1.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="350.0" fitWidth="350.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@1%20(1).png" />
-         </image>
-      </ImageView>
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="350.0" fitWidth="350.0" layoutX="448.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="350.0" fitWidth="350.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="95.0" layoutX="430.0" layoutY="240.0" opacity="0.5" stroke="#b0313100" strokeType="INSIDE" width="370.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0" startY="1.0">
@@ -68,11 +55,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <ImageView fx:id="genderEnemy1" fitHeight="30.0" fitWidth="30.0" layoutX="455.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@62a203b33395eb8.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="genderEnemy1" fitHeight="30.0" fitWidth="30.0" layoutX="455.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="579.0" layoutY="306.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="5.0" width="200.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0">
@@ -264,11 +247,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <ImageView fx:id="genderEnemy11" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@62a203b33395eb8.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="genderEnemy11" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="10.0" layoutX="149.0" layoutY="146.0" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="5.0" width="200.0">
          <fill>
             <LinearGradient endX="1.0" endY="1.0">

@@ -3,11 +3,13 @@ package persistence;
 import domain.Pokemon;
 import domain.Type;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class JdbcPokemonRepository implements PokemonRepository{
+public record JdbcPokemonRepository (Connection connection) implements PokemonRepository{
     @Override
     public Optional<Pokemon> findById(int id) throws SQLException {
         return Optional.empty();
@@ -35,6 +37,12 @@ public class JdbcPokemonRepository implements PokemonRepository{
 
     @Override
     public Pokemon save(Pokemon pokemon) throws SQLException {
+        /*var sql = """
+                insert into Pokemons values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """;
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+
+        }*/
         return null;
     }
 

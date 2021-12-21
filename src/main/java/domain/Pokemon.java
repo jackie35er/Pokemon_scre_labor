@@ -24,8 +24,4 @@ public class Pokemon {
         this.primaryType = primaryType;
         this.secondaryType = secondaryType;
     }
-
-    public Pokemon(String name, Integer hp, Integer attack, Integer defense, Integer spAttack, Integer sp_defense, Integer speed, Type primaryType, Type secondaryType) {
-        this(null, name, hp, attack, defense, spAttack, sp_defense, speed, primaryType, secondaryType);
-    }
 }

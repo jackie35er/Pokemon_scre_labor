@@ -21,7 +21,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
         var sql = """
                 select Pokemons.*, Types1.name as primary_name, Types2.name as secondary_name from Pokemons
                 inner join Types as Types1 on Pokemons.primary_type = Types1.id
-                inner join Types as Types2 on Pokemons.secondary_type = Types2.id
+                left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.id = ?
                 """;
         try(PreparedStatement statement = connection.prepareStatement(sql)){
@@ -37,7 +37,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
         var sql = """
                 select Pokemons.*, Types1.name as primary_name, Types2.name as secondary_name from Pokemons
                 inner join Types as Types1 on Pokemons.primary_type = Types1.id
-                inner join Types as Types2 on Pokemons.secondary_type = Types2.id
+                left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.name = ?
                 """;
         try(PreparedStatement statement = connection.prepareStatement(sql)){
@@ -53,7 +53,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
         var sql = """
                 select Pokemons.*, Types1.name as primary_name, Types2.name as secondary_name from Pokemons
                 inner join Types as Types1 on Pokemons.primary_type = Types1.id
-                inner join Types as Types2 on Pokemons.secondary_type = Types2.id
+                left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 """;
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             List<Pokemon> pokemonList = new ArrayList<>();
@@ -70,7 +70,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
         var sql = """
                 select Pokemons.*, Types1.name as primary_name, Types2.name as secondary_name from Pokemons
                 inner join Types as Types1 on Pokemons.primary_type = Types1.id
-                inner join Types as Types2 on Pokemons.secondary_type = Types2.id
+                left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.primary_type = ?
                 """;
         try(PreparedStatement statement = connection.prepareStatement(sql)){
@@ -89,7 +89,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
         var sql = """
                 select Pokemons.*, Types1.name as primary_name, Types2.name as secondary_name from Pokemons
                 inner join Types as Types1 on Pokemons.primary_type = Types1.id
-                inner join Types as Types2 on Pokemons.secondary_type = Types2.id
+                left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.secondary_type = ?
                 """;
         try(PreparedStatement statement = connection.prepareStatement(sql)){

@@ -1,9 +1,10 @@
 package domain;
 
-public record Pokemon (Integer id,
-                       String name,
-                        StatsInteface stats,
-                        Types types) implements PokemonInterface{
+public record Pokemon(Integer id,
+                      String name,
+                      StatsInteface stats,
+                      Types types,
+                      MoveSet moveSet) implements PokemonInterface {
     @Override
     public int getId() {
         return this.id;
@@ -22,5 +23,10 @@ public record Pokemon (Integer id,
     @Override
     public Types getTypes() {
         return this.types;
+    }
+
+    @Override
+    public MoveSet getMoveSet() {
+        return this.moveSet;
     }
 }

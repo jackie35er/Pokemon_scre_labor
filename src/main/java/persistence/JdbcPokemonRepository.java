@@ -69,4 +69,9 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
     public void delete() throws SQLException{
 
     }
+
+    @Override
+    public double getMultiplierForTypes(Type user, Type target) {
+        return 0;
+    }
 }

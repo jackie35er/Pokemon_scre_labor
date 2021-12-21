@@ -43,18 +43,15 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, pokemon.id());
             statement.setString(2, pokemon.name());
-            statement.setInt(3, pokemon.stats().hp());
-            statement.setInt(4, pokemon.stats().attack());
-            statement.setInt(5, pokemon.stats().defense());
-            statement.setInt(6, pokemon.stats().spAttack());
-            statement.setInt(7, pokemon.stats().spDefense());
-            statement.setInt(8, pokemon.stats().speed());
+            statement.setInt(3, pokemon.stats().getHealth().get());
+            statement.setInt(4, pokemon.stats().getAttack().get());
+            statement.setInt(5, pokemon.stats().getDefense().get());
+            statement.setInt(6, pokemon.stats().getSpecialAttack().get());
+            statement.setInt(7, pokemon.stats().getSpecialDefense().get());
+            statement.setInt(8, pokemon.stats().getSpeed().get());
             statement.setInt(9, pokemon.types().primaryType().id());
             statement.setInt(10, pokemon.types().secondaryType().id());
-            if(statement.executeUpdate() != 1){
-                return false;
-            }
-            return true;
+            return statement.executeUpdate() == 1;
         }
     }
 

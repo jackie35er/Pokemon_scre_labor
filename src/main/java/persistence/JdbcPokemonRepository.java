@@ -1,9 +1,6 @@
 package persistence;
 
-import domain.Pokemon;
-import domain.Stats;
-import domain.Type;
-import domain.Types;
+import domain.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -15,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record JdbcPokemonRepository (Connection connection) implements PokemonRepository{
+public record JdbcPokemonRepository(Connection connection) implements PokemonRepository {
     @Override
     public Optional<Pokemon> findById(int id) throws SQLException {
         var sql = """
@@ -24,7 +21,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
                 left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.id = ?
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
@@ -40,7 +37,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
                 left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.name = ?
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
@@ -55,12 +52,11 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
                 inner join Types as Types1 on Pokemons.primary_type = Types1.id
                 left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             List<Pokemon> pokemonList = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next())
                 pokemonList.add(createPokemon(resultSet));
-            }
             return pokemonList;
         }
     }
@@ -73,13 +69,12 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
                 left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.primary_type = ?
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, type.id());
             List<Pokemon> pokemonList = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next())
                 pokemonList.add(createPokemon(resultSet));
-            }
             return pokemonList;
         }
     }
@@ -92,11 +87,11 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
                 left join Types as Types2 on Pokemons.secondary_type = Types2.id
                 where Pokemons.secondary_type = ?
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, type.id());
             List<Pokemon> pokemonList = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 pokemonList.add(createPokemon(resultSet));
             }
             return pokemonList;
@@ -108,7 +103,7 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
         var sql = """
                 insert into Pokemons values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, pokemon.id());
             statement.setString(2, pokemon.name());
             statement.setInt(3, pokemon.stats().getHealth().get());
@@ -124,40 +119,40 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
     }
 
     @Override
-    public int deleteById(int id) throws SQLException{
+    public int deleteById(int id) throws SQLException {
         var sql = """
                 delete from Pokemons
                 where id = ?
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             return statement.executeUpdate();
         }
     }
 
     @Override
-    public int deleteByName(String name) throws SQLException{
+    public int deleteByName(String name) throws SQLException {
         var sql = """
                 delete from Pokemons
                 where name = ?
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             return statement.executeUpdate();
         }
     }
 
     @Override
-    public int delete() throws SQLException{
+    public int delete() throws SQLException {
         var sql = """
                 delete from Pokemons
                 """;
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             return statement.executeUpdate();
         }
     }
 
-    public Pokemon createPokemon(ResultSet resultSet) throws SQLException{
+    public Pokemon createPokemon(ResultSet resultSet) throws SQLException {
         return new Pokemon(resultSet.getInt("id"),
                 resultSet.getString("name"),
                 new Stats(new SimpleIntegerProperty(resultSet.getInt("hp")),
@@ -166,10 +161,10 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
                         new SimpleIntegerProperty(resultSet.getInt("sp_attack")),
                         new SimpleIntegerProperty(resultSet.getInt("sp_defense")),
                         new SimpleIntegerProperty(resultSet.getInt("speed"))),
-                new Types(new Type(resultSet.getInt("primary_type"),
-                        resultSet.getString("primary_name")),
-                        new Type(resultSet.getInt("secondary_type"),
-                                resultSet.getString("secondary_name"))));
+                new Types(
+                        new Type(resultSet.getInt("primary_type"), resultSet.getString("primary_name")),
+                        new Type(resultSet.getInt("secondary_type"), resultSet.getString("secondary_name"))),
+                new MoveSetImpl());
     }
 
     @Override

@@ -9,4 +9,6 @@ public interface PokemonInterface {
     StatsInteface getStats();
 
     Types getTypes();
+
+    MoveSet getMoveSet();
 }

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public record DefaultPokemonInserter(Connection connection) {
+public record PokemonApiLoaderRepository(Connection connection) {
 
     public void loadPokemonInDatabase(int from, int toInclusive) throws SQLException {
         PokeApi pokeApi = new PokeApiClient();
@@ -37,6 +37,7 @@ public record DefaultPokemonInserter(Connection connection) {
     public void loadMultipliersInDatabase() throws SQLException {
 
         PokeApi pokeApi = new PokeApiClient();
+        //this sql statements only inserts if it doesnt exists yet. Would be 10 times easier in MySQL, just saying
         String sqlMuliplier ="if not exists (Select * From Multipliers where userType = ? and targetType = ?) " +
                 "begin insert into Multipliers values(?,?,?) end ";
         for(int i = 1; i <= 18; i++){
@@ -121,10 +122,15 @@ public record DefaultPokemonInserter(Connection connection) {
         }
     }
 
+    private void safeMoves() throws SQLException{
+        PokeApi pokeApi = new PokeApiClient();
+
+    }
+
     public static void main(String[] args) throws SQLException {
         String connectionURL = "jdbc:sqlserver://IFSQL-01.htl-stp.if:1433;databaseName=db_pokemon_goetz_pils;user=sa";
         Connection connection = DriverManager.getConnection(connectionURL);
-        DefaultPokemonInserter defaultPokemonInserter = new DefaultPokemonInserter(connection);
+        PokemonApiLoaderRepository defaultPokemonInserter = new PokemonApiLoaderRepository(connection);
         defaultPokemonInserter.truncateTable("Multipliers");
         defaultPokemonInserter.truncateTable("Pokemons");
         defaultPokemonInserter.truncateTable("Types");

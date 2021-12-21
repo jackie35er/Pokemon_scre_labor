@@ -78,5 +78,14 @@ public interface PokemonRepository {
     /**
      * Delete all pokemon
      */
+  
     int delete() throws SQLException;
+  
+    /**
+     * return the multiplier used when user attacks the target;
+     * @param user user type
+     * @param target target type
+     * @return the multiplier
+     */
+    double getMultiplierForTypes(Type user,Type target);
 }

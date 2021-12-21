@@ -171,4 +171,9 @@ public record JdbcPokemonRepository (Connection connection) implements PokemonRe
                         new Type(resultSet.getInt("secondary_type"),
                                 resultSet.getString("secondary_name"))));
     }
+
+    @Override
+    public double getMultiplierForTypes(Type user, Type target) {
+        return 0;
+    }
 }

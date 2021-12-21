@@ -59,7 +59,7 @@ public interface PokemonRepository {
      * @return pokemon containing at least data given
      * @throws SQLException
      */
-    Pokemon save(Pokemon pokemon) throws SQLException;
+    boolean save(Pokemon pokemon) throws SQLException;
 
     /**
      * Delete pokemon with given id

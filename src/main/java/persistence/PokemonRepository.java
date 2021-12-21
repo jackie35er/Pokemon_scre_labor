@@ -66,17 +66,17 @@ public interface PokemonRepository {
      *
      * @param id id to delete
      */
-    void deleteById(int id) throws SQLException;
+    int deleteById(int id) throws SQLException;
 
     /**
      * Delete pokemon with given name
      *
      * @param name name to delete
      */
-    void deleteByName(String name) throws SQLException;
+    int deleteByName(String name) throws SQLException;
 
     /**
      * Delete all pokemon
      */
-    void delete() throws SQLException;
+    int delete() throws SQLException;
 }

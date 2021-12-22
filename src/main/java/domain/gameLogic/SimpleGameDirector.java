@@ -40,6 +40,7 @@ public class SimpleGameDirector implements GameDirector {
         System.out.println(secondPokemon.getName() + " used " + secondMove.getName());
         secondMove.execute((selfUse ? secondPokemon : firstPokemon),
                         getDamage(secondPokemon,firstPokemon,secondMove));
+        System.out.println();
     }
 
     private boolean decideWhosFirst(Move movePokemon1,Move movePokemon2){
@@ -61,11 +62,9 @@ public class SimpleGameDirector implements GameDirector {
 
     private int getDamage(PokemonInterface user, PokemonInterface target, Move move){
         if(random.nextInt(0,100) >= move.getAccuarcy()){
-            System.out.println(move.getName() + "missed");
+            System.out.println(move.getName() + " missed");
             return 0;
         }
-
-
 
         if (move.getDamageType().equals(Move.DamageType.STATUS))
             return 0;

@@ -35,7 +35,7 @@ public record JdbcPokemonRepository(Connection connection) implements PokemonRep
                 select Pokemons.*, Types1.name as primary_name, Types2.name as secondary_name from Pokemons
                 inner join Types as Types1 on Pokemons.primary_type = Types1.id
                 left join Types as Types2 on Pokemons.secondary_type = Types2.id
-                where Pokemons.name = ?
+                where Pokemons.name like ?
                 """;
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
@@ -167,8 +167,5 @@ public record JdbcPokemonRepository(Connection connection) implements PokemonRep
                 new MoveSetImpl());
     }
 
-    @Override
-    public double getMultiplierForTypes(Type user, Type target) {
-        return 0;
-    }
+
 }

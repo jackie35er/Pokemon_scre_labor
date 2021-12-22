@@ -2,20 +2,20 @@ package domain.gameLogic;
 
 
 import domain.Move;
-import domain.Pokemon;
 import domain.PokemonInterface;
-import persistence.PokemonRepository;
+import persistence.TypeRepository;
 
+import java.sql.SQLException;
 import java.util.Random;
 
 public class SimpleGameDirector implements GameDirector {
     private GameState gameState;
     private Random random = new Random();
-    private PokemonRepository pokemonRepository;
+    private TypeRepository typeRepository;
 
-    public SimpleGameDirector(GameState gameState, PokemonRepository pokemonRepository){
+    public SimpleGameDirector(GameState gameState, TypeRepository pokemonRepository){
         this.gameState = gameState;
-        this.pokemonRepository = pokemonRepository;
+        this.typeRepository = pokemonRepository;
     }
 
     @Override
@@ -28,15 +28,18 @@ public class SimpleGameDirector implements GameDirector {
         PokemonInterface firstPokemon = first ? gameState.getPokemon1() : gameState.getPokemon2();
         PokemonInterface secondPokemon = first ? gameState.getPokemon2() : gameState.getPokemon1();
 
-        boolean selfUse = firstPokemon.getMoveSet().getMove(moveIndexPokemon1).isSelfUse();
-        firstPokemon.getMoveSet().getMove(moveIndexPokemon1)
-                .execute((selfUse ? firstPokemon : secondPokemon),
-                        getMultiplier(firstPokemon,secondPokemon,firstPokemon.getMoveSet().getMove(moveIndexPokemon1)));
+        Move firstMove = first ? movePokemon1 : movePokemon2;
+        Move secondMove = first ? movePokemon2 : movePokemon1;
 
-        selfUse = firstPokemon.getMoveSet().getMove(moveIndexPokemon2).isSelfUse();
-        firstPokemon.getMoveSet().getMove(moveIndexPokemon2)
-                .execute((selfUse ? secondPokemon : firstPokemon),
-                        getMultiplier(secondPokemon,firstPokemon,secondPokemon.getMoveSet().getMove(moveIndexPokemon2)));
+        boolean selfUse = firstMove.isSelfUse();
+        System.out.println(firstPokemon.getName() + " used " + firstMove.getName());
+        firstMove.execute((selfUse ? firstPokemon : secondPokemon),
+                        getDamage(firstPokemon,secondPokemon,firstMove));
+
+        selfUse = secondMove.isSelfUse();
+        System.out.println(secondPokemon.getName() + " used " + secondMove.getName());
+        secondMove.execute((selfUse ? secondPokemon : firstPokemon),
+                        getDamage(secondPokemon,firstPokemon,secondMove));
     }
 
     private boolean decideWhosFirst(Move movePokemon1,Move movePokemon2){
@@ -56,29 +59,44 @@ public class SimpleGameDirector implements GameDirector {
         else return speedPokemon1 > speedPokemon2;
     }
 
-    private double getMultiplier(PokemonInterface user, PokemonInterface target, Move move){
-        if (move.getDamageType().equals(Move.DamageType.STATUS)){
-            return 1.0;
+    private int getDamage(PokemonInterface user, PokemonInterface target, Move move){
+        if(random.nextInt(0,100) >= move.getAccuarcy()){
+            System.out.println(move.getName() + "missed");
+            return 0;
         }
+
+
+
+        if (move.getDamageType().equals(Move.DamageType.STATUS))
+            return 0;
+
         else{
             //https://bulbapedia.bulbagarden.net/wiki/Damage
             int power = move.getPower();
-            int level = 50;
+            int level = 25;
             double attackDefenseRatio = calcAttackDefenseRatio(user,target,move);
+            //this only works in language level 17 but if you dont want to install it just put 1
+            //double randomMultiplier = 1.0;
             double randomMultiplier = random.nextDouble(0.85,1.0);
             double stab = calcStab(user,move);
             double typeAdvantageMultiplier = calcTypeAdvantageMultiplier(target,move);
-            return ((2 * level/5.0 +2) * power * attackDefenseRatio/ 50.0) * randomMultiplier * stab * typeAdvantageMultiplier;
+            return (int) ((int) ((2 * level/5.0 +2) * power * attackDefenseRatio/ 50.0) * randomMultiplier * stab * typeAdvantageMultiplier);
 
         }
     }
 
     private double calcTypeAdvantageMultiplier(PokemonInterface target, Move move) {
         double multiplier = 1.0;
-        multiplier *= pokemonRepository.getMultiplierForTypes(move.getType(),target.getTypes().primaryType());
-        if(target.getTypes().secondaryType() != null){
-            multiplier *= pokemonRepository.getMultiplierForTypes(move.getType(), target.getTypes().secondaryType());
+        try {
+            multiplier *= typeRepository.getMultiplierForTypes(move.getType(),target.getTypes().primaryType());
+            if(target.getTypes().secondaryType() != null){
+                multiplier *= typeRepository.getMultiplierForTypes(move.getType(), target.getTypes().secondaryType());
+            }
         }
+        catch (SQLException sqlException){
+            sqlException.printStackTrace();
+        }
+
         return multiplier;
     }
 

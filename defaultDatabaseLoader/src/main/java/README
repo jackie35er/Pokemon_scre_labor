@@ -1,0 +1,2 @@
+This Repository is in its own Module,
+so the Pokemon class from the PokeAPI and our Pokemon class dont clash

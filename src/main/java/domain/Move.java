@@ -2,13 +2,13 @@ package domain;
 
 public interface Move {
 
-    void execute(PokemonInterface target, double effectMultiplier);
+    void execute(PokemonInterface target, int damage);
 
     int getAccuarcy();
 
     int getPower();
 
-    int getName();
+    String getName();
 
     int getPriority();
 

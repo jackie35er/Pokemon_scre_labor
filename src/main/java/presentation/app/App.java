@@ -14,7 +14,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class app extends Application{
+import static presentation.controller.Controller.connection;
+
+public class App extends Application{
     //public static final String JDBC_URL = "jdbc:sqlserver://IFSQL-01.htl-stp.if:1433;databaseName=db_pokemon_goetz_pils;user=sa";
     //private Connection connection;
     //private PokemonRepository repository;
@@ -32,8 +34,8 @@ public class app extends Application{
         stage.setResizable(false);
     }
 
-    /*@Override
+    @Override
     public void stop() throws SQLException{
         connection.close();
-    }*/
+    }
 }
